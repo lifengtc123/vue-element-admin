@@ -1,11 +1,14 @@
 'use strict'
+require('@babel/register')
 const path = require('path')
-const settings = require('./src/settings.js')
+const { default: settings } = require('./src/settings.js')
 const { name } = settings
 
 function resolve(dir) {
   return path.join(__dirname, dir)
 }
+
+const port = 9527 // dev port
 
 // Explanation of each configuration item You can find it in https://cli.vuejs.org/config/
 module.exports = {
@@ -23,7 +26,7 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV === 'development' ? 'error' : false,
   productionSourceMap: false,
   devServer: {
-    port: 9527,
+    port: port,
     open: true,
     overlay: {
       warnings: false,
@@ -40,7 +43,7 @@ module.exports = {
     },
     after(app) {
       const bodyParser = require('body-parser')
-      require('@babel/register')
+
       // parse app.body
       // http://expressjs.com/en/4x/api.html#req.body
       app.use(bodyParser.json())
@@ -48,10 +51,9 @@ module.exports = {
         extended: true
       }))
 
-      // import ES2015 module from common.js module
       const { default: mocks } = require('./mock')
       for (const mock of mocks) {
-        app.all(mock.route, mock.response)
+        app[mock.type](mock.url, mock.response)
       }
     }
   },
