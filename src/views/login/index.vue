@@ -135,13 +135,14 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
-          // dispatch @/store/modules/user login action
-          this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.loading = false
-            this.$router.push({ path: this.redirect || '/' })
-          }).catch(() => {
-            this.loading = false
-          })
+          this.$store.dispatch('user/login', this.loginForm)
+            .then(() => {
+              this.$router.push({ path: this.redirect || '/' })
+              this.loading = false
+            })
+            .catch(() => {
+              this.loading = false
+            })
         } else {
           console.log('error submit!!')
           return false
@@ -219,7 +220,6 @@ $cursor: #fff;
     color: #454545;
   }
 }
-
 </style>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -297,6 +297,12 @@ $light_gray:#eee;
     position: absolute;
     right: 0;
     bottom: 6px;
+  }
+
+  @media only screen and (max-width: 470px) {
+    .thirdparty-button {
+      display: none;
+    }
   }
 }
 </style>
