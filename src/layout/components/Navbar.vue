@@ -85,13 +85,7 @@ export default {
 }
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
-.hasTagsView {
-  .navbar {
-    border-bottom: none;
-  }
-}
-
+<style lang="scss" scoped>
 .navbar {
   height: 50px;
   overflow: hidden;
@@ -105,6 +99,7 @@ export default {
     float: left;
     cursor: pointer;
     transition: background .3s;
+    -webkit-tap-highlight-color:transparent;
 
     &:hover {
       background: rgba(0, 0, 0, .025)

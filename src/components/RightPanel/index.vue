@@ -2,7 +2,9 @@
   <div ref="rightPanel" :class="{show:show}" class="rightPanel-container">
     <div class="rightPanel-background" />
     <div class="rightPanel">
-      <el-button class="handle-button" :style="{'top':buttonTop+'px'}" type="primary" circle :icon="show?'el-icon-close':'el-icon-setting'" @click="show=!show" />
+      <div class="handle-button" :style="{'top':buttonTop+'px','background-color':theme}" @click="show=!show">
+        <i :class="show?'el-icon-close':'el-icon-setting'" />
+      </div>
       <div class="rightPanel-items">
         <slot />
       </div>
@@ -21,13 +23,18 @@ export default {
       type: Boolean
     },
     buttonTop: {
-      default: 240,
+      default: 250,
       type: Number
     }
   },
   data() {
     return {
       show: false
+    }
+  },
+  computed: {
+    theme() {
+      return this.$store.state.settings.theme
     }
   },
   watch: {
@@ -77,7 +84,7 @@ export default {
 }
 </style>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style lang="scss" scoped>
 .rightPanel-background {
   opacity: 0;
   transition: opacity .3s cubic-bezier(.7, .3, .1, 1);
@@ -108,7 +115,6 @@ export default {
 }
 
 .show {
-
   transition: all .3s cubic-bezier(.7, .3, .1, 1);
 
   .rightPanel-background {
@@ -131,7 +137,16 @@ export default {
   height: 48px;
   pointer-events: auto;
   z-index: 0;
+  cursor: pointer;
+  pointer-events: auto;
   font-size: 24px;
   text-align: center;
+  color: #fff;
+  line-height: 48px;
+
+  i {
+    font-size: 24px;
+    line-height: 48px;
+  }
 }
 </style>

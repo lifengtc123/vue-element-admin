@@ -1,5 +1,7 @@
+import variables from '@/styles/element-variables.scss'
+
 export default {
-  title: 'vue-element-admin',
+  theme: variables.theme,
 
   /**
    * @type {boolean} true | false
@@ -17,7 +19,13 @@ export default {
    * @type {boolean} true | false
    * @description Whether fix the header
    */
-  fixedHeader: true,
+  fixedHeader: false,
+
+  /**
+   * @type {boolean} true | false
+   * @description Whether show the logo in sidebar
+   */
+  sidebarLogo: false,
 
   /**
    * @type {string | array} 'production' | ['production','development']
